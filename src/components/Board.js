@@ -29,6 +29,7 @@ export default function Board() {
   const result = checkWinner()
 
   const handleClick = (ind) => {
+    if(state[ind]!=null) return
     setMoveCount(moveCount+1)
     const newArr = [...state]
     newArr[ind] = isX ? "X" : "O"
@@ -40,6 +41,7 @@ export default function Board() {
   if(result) return <div><h1>{!isX?"X":"O"} won</h1><button onClick={()=>window.location.reload()} >Play again</button></div>
   return (
     <div style={{ margin: "auto", maxWidth: "20rem", marginTop: "5rem" }} >
+      <h4>Player {isX?"X":"O"}'s turn</h4>
       <div className="board-row">
               <Square value={state[0]} onClick={() => handleClick(0)} />
               <Square value={state[1]} onClick={() => handleClick(1)} />
@@ -55,6 +57,7 @@ export default function Board() {
               <Square value={state[7]} onClick={() => handleClick(7)} />
               <Square value={state[8]} onClick={() => handleClick(8)} />
             </div>
+            <button onClick={()=>setState(Array(9).fill(null))} style={{marginTop:"2rem"}} >RESET</button>
     </div>
   )
 }
